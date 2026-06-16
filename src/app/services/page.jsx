@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import ServicesHero from "../components/Service/ServicesHero";
 import ServicesComparison from "../components/Service/ServicesComparison";
 import ServiceFaqSection from "../components/Service/ServiceFaq";
@@ -16,7 +16,9 @@ function ServicePage() {
     <div>
       <ServicesHero onServiceSelect={handleServiceSelect} />
       <ServicesTimeline />
-      <ServicesComparison selectedService={selectedService} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ServicesComparison selectedService={selectedService} />
+      </Suspense>
       <ServiceFaqSection />
       <CtaSection />
     </div>
