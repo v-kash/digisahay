@@ -583,10 +583,8 @@ export default function TermsOfService() {
                   <p className="text-[#8A8580] text-sm mb-1">Address</p>
 
                   <p className="text-[#5A5550] font-medium leading-[1.8]">
-                    402, Shivalik Plaza, SG Highway,
-                    <br />
-                    Ahmedabad, Gujarat 380015, India
-                  </p>
+2nd Floor, President Plaza, Sg Highway                    <br />
+Thaltej, Ahmedabad - 380054                  </p>
                 </div>
               </div>
             </div>

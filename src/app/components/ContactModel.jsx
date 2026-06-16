@@ -126,7 +126,7 @@ export function ContactModal({ isOpen, onClose }) {
           </button>
 
           {/* --- LEFT PANEL (Purple Branding) --- */}
-          <div className="md:w-[40%] bg-[#5B47E5] text-white p-6 sm:p-8 md:p-8 flex flex-col relative shrink-0">
+          <div className="md:w-[40%] bg-[#5B47E5] text-white p-5 sm:p-8 md:p-8 flex flex-col relative shrink-0 max-h-[320px] md:max-h-none overflow-hidden">
             {/* BOTTOM LEFT TROPHY SVG */}
             <div className="hidden md:block md:absolute bottom-0 right-0 pointer-events-none">
               <img src="/trophy.png" className="-50 w-50 " />
@@ -153,18 +153,18 @@ export function ContactModal({ isOpen, onClose }) {
                 <img
                   src="/logo3.svg"
                   alt="Digital Sahaay Logo"
-                  className="h-12 md:h-16 w-auto object-contain"
+                  className="h-10 md:h-16 w-auto object-contain"
                 />
               </div>
 
               {/* Dynamic Content based on State */}
               {!isSubmitted ? (
                 <div className="space-y-3 mb-3 md:mb-8">
-                  <h2 className="text-[24px] md:text-[44px] font-bold leading-tight tracking-tighter ">
+                  <h2 className="text-[20px] md:text-[44px] font-bold leading-tight tracking-tighter ">
                     Let's Grow Your <br />
                     <span className="text-[#FFE78A]">Business Smarter</span>
                   </h2>
-                  <p className="text-[#CFC8FF] text-[14px] md:text-[16px] w-80 md:w-75 leading-tight tracking-tighter ">
+                  <p className="text-[#CFC8FF] text-[12px] md:text-[16px] w-80 md:w-75 leading-tight tracking-tighter ">
                     Tell us a little about your business and goals. Our team
                     will reach out with the right strategy for you.
                   </p>
@@ -345,7 +345,7 @@ export function ContactModal({ isOpen, onClose }) {
               // --- FORM VIEW ---
               <div className="w-full max-w-2xl  md:mx-auto">
                 <div className="mb-2 md:mb-2">
-                  <h3 className="text-[20px] md:text-[28px] -ml-1 font-semibold text-[#333333] mb-0 leading-tight tracking-tighter">
+                  <h3 className="text-[20px] md:text-[28px] -ml-1 font-semibold text-[#333333] mb-0 mt-2 md:mt-0 leading-tight tracking-tighter">
                     Tell Us About Your Business
                   </h3>
                   <p className="text-[12px] md:text-[14px] font-medium text-[#6A6A6A]/70">
@@ -557,7 +557,7 @@ export function ContactModal({ isOpen, onClose }) {
                     >
                       Get Free Consultation
                     </button>
-                    <div className="mt-4 flex items-center justify-center gap-2 text-[12px] md:text-[14px] tracking-tighter leading-tight text-gray-500">
+                    <div className="mt-2 md:mt-4 flex items-center justify-center gap-2 text-[12px] md:text-[14px] tracking-tighter leading-tight text-gray-500">
                       <svg
                         width="14"
                         height="14"
