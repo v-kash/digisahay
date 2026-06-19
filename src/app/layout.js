@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 import CustomCursor from "./components/CustomCursor";
 import { FaWhatsapp } from "react-icons/fa";
+export { metadata } from "@/app/layout-metadata";
 
 const gilroy = localFont({
   src: [
@@ -60,6 +61,33 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className={`${gilroy.variable} h-full antialiased`}>
+      <head>
+        <meta name="geo.region" content="IN-GJ" />
+        <meta name="geo.placename" content="Ahmedabad, Gujarat, India" />
+        <meta name="geo.position" content="23.05169584121351;72.51896023573782" />
+  <meta name="ICBM" content="23.05169584121351, 72.51896023573782" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="rating" content="general" />
+        <meta name="distribution" content="global" />
+        <meta name="coverage" content="India" />
+        <meta
+          property="business:contact_data:street_address"
+          content="2nd Floor, President Plaza, 5g Highway Thatej"
+        />
+        <meta property="business:contact_data:locality" content="Ahmedabad" />
+        <meta property="business:contact_data:region" content="Gujarat" />
+        <meta property="business:contact_data:postal_code" content="380054" />
+        <meta property="business:contact_data:country_name" content="India" />
+        <meta
+          property="business:contact_data:phone_number"
+          content="+91-63576-65915"
+        />
+        <meta
+          property="business:contact_data:website"
+          content="https://www.digitalsahaay.com"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#F7F7FF]">
         <SmoothScroll />
 

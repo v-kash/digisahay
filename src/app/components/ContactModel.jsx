@@ -17,6 +17,7 @@ export function ContactModal({ isOpen, onClose }) {
   // New states for validation UX
   const [isMobile, setIsMobile] = useState(false);
   const [shake, setShake] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Check if mobile view to make hidden fields optional
   useEffect(() => {
@@ -55,7 +56,7 @@ export function ContactModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   // Handle Form Submission
-  const handleSubmit = (e) => {
+  const  handleSubmit   = async (e) => {
     e.preventDefault();
     let newErrors = {};
 
@@ -81,11 +82,24 @@ export function ContactModal({ isOpen, onClose }) {
       setShake(true);
       setTimeout(() => setShake(false), 500); // Remove shake class after animation completes
     } else {
-      // Simulate API Call
-      setTimeout(() => {
-        setIsSubmitted(true);
-      }, 500);
-    }
+  setIsSubmitting(true);
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) throw new Error("Submission failed");
+
+    setIsSubmitted(true);
+  } catch (err) {
+    console.error(err);
+    setErrors({ submit: "Something went wrong. Please try again." });
+  } finally {
+    setIsSubmitting(false);
+  }
+}
   };
 
   return (

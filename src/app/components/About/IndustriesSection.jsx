@@ -2040,7 +2040,7 @@ export default function IndustriesSection() {
                     onClick={() =>
                       handleCardClick(item.industry, item.portfolio, idx)
                     }
-                    className={`w-[306px] h-[451px] shrink-0 relative rounded-[26px] overflow-hidden bg-[#333333] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-center ${
+                    className={`w-[306px] h-[451px] shrink-0 relative  rounded-[26px] overflow-hidden bg-[#333333] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] origin-center ${
                       activeIndex === idx
                         ? "scale-100 opacity-100 z-10"
                         : "scale-[0.85] opacity-100 z-0"

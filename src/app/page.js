@@ -7,6 +7,7 @@ import ProcessSection from "./components/Home/ProcessSection";
 import ServicesSection from "./components/Home/ServicesSection";
 import TestimonialSection from "./components/Home/TestimonialSection";
 import WhyChooseUs from "./components/Home/WhyChooseUs";
+export { metadata } from "@/app/metadata";
 
 export default function Home() {
   return (

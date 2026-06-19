@@ -207,7 +207,7 @@ const handleMobileOverlayBack = () => {
   const leftPath = `M ${midX} ${y0} L ${leftStartArcX} ${y0} A ${r} ${r} 0 0 0 ${leftStartArcX} ${y1} L ${midX} ${y1}`;
 
   return (
-    <section className="relative w-full pt-22 md:pt-32 pb-20 md:pb-20 px-4 md:px-8 lg:px-16 flex flex-col items-center md:justify-center text-center overflow-hidden bg-[#fcfbfa] min-h-[110svh] md:min-h-[100vh]">
+    <section className="relative w-full pt-22 md:pt-32 pb-20 md:pb-20 px-4 md:px-8 lg:px-16 flex flex-col items-center md:justify-center text-center overflow-hidden bg-[#fcfbfa] min-h-[120svh] md:min-h-[100vh]">
       {/* Decorative background blurs - KEEP EXACTLY THE SAME */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -547,7 +547,7 @@ const handleMobileOverlayBack = () => {
         <img
           src="/servicepage/hero.png"
           alt="Hero Character"
-          className=" relative z-10 mx-auto w-[100%] sm:w-[85%] md:w-[720px] lg:w-[860px] xl:w-[980px] object-contain object-bottom translate-y-[40px] sm:translate-y-[24px]"
+          className=" relative z-10 mx-auto  w-[100%] sm:w-[85%] md:w-[720px] lg:w-[860px] xl:w-[980px] object-contain object-bottom translate-y-[40px] sm:translate-y-[24px]"
         />
       </div>
     </section>
