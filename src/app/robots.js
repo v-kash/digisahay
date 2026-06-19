@@ -6,7 +6,7 @@
  * Docs: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots
  */
 
-import { SEO } from "@/lib/seo";
+import { SEO } from "@/app/lib/seo";
 
 export default function robots() {
   return {

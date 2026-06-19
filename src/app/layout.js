@@ -64,8 +64,11 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="geo.region" content="IN-GJ" />
         <meta name="geo.placename" content="Ahmedabad, Gujarat, India" />
-        <meta name="geo.position" content="23.05169584121351;72.51896023573782" />
-  <meta name="ICBM" content="23.05169584121351, 72.51896023573782" />
+        <meta
+          name="geo.position"
+          content="23.05169584121351;72.51896023573782"
+        />
+        <meta name="ICBM" content="23.05169584121351, 72.51896023573782" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
         <meta name="rating" content="general" />

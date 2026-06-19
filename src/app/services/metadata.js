@@ -8,7 +8,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 
-import { SEO, buildOgImage, buildUrl } from "@/lib/seo";
+import { SEO, buildOgImage, buildUrl } from "@/app/lib/seo";
 
 const PAGE_TITLE =
   "Digital Marketing Services | Website Development, SEO, Social Media & More | Digital Sahaay";

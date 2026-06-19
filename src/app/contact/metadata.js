@@ -8,7 +8,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 
-import { SEO, buildOgImage, buildUrl } from "@/lib/seo";
+import { SEO, buildOgImage, buildUrl } from "@/app/lib/seo";
 
 const PAGE_TITLE =
   "Contact Digital Sahaay | Book Free Consultation | Ahmedabad, Chennai, Pune";

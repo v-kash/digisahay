@@ -4,7 +4,6 @@ import CtaSection from "../components/Home/CtaSection";
 import ContactHero from "../components/contact/ContatHero";
 import ContactSection from "../components/contact/ContactForm";
 import BranchesSection from "../components/contact/BranchesSection";
-export { metadata } from "@/app/contact/metadata"
 function ContactPage() {
   return (
     <div>

@@ -5,7 +5,6 @@ import ServicesComparison from "../components/Service/ServicesComparison";
 import ServiceFaqSection from "../components/Service/ServiceFaq";
 import CtaSection from "../components/Home/CtaSection";
 import ServicesTimeline from "../components/Service/ServicesTimeline";
-export { metadata } from "@/app/services/metadata"
 
 function ServicePage() {
   const [selectedService, setSelectedService] = useState(null);

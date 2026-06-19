@@ -12,7 +12,7 @@
  * ──────────────────────────────────────────────────────────
  */
 
-import { SEO } from "@/lib/seo";
+import { SEO } from "@/app/lib/seo";
 
 export default function sitemap() {
   const now = new Date();

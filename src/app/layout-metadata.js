@@ -10,7 +10,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 
-import { SEO, buildOgImage } from "@/lib/seo";
+import { SEO, buildOgImage } from "@/app/lib/seo";
 
 export const metadata = {
   // ── metadataBase (required for absolute OG URLs) ──────────

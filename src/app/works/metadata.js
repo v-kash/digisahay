@@ -8,7 +8,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 
-import { SEO, buildOgImage, buildUrl } from "@/lib/seo";
+import { SEO, buildOgImage, buildUrl } from "@/app/lib/seo";
 
 const PAGE_TITLE =
   "Our Works & Case Studies | Real Digital Growth Results | Digital Sahaay";
