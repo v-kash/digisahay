@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // --- Main Modal Component ---
 export function ContactModal({ isOpen, onClose }) {
@@ -29,18 +29,6 @@ export function ContactModal({ isOpen, onClose }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Handle Input Changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "projectDetails" && value.length > 500) return; // Max length 500
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // Clear specific error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
   // Validate form dynamically
   useEffect(() => {
     const isValid =
@@ -56,7 +44,7 @@ export function ContactModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   // Handle Form Submission
-  const  handleSubmit   = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
 
@@ -64,8 +52,13 @@ export function ContactModal({ isOpen, onClose }) {
     // Only require company if it's visible (desktop view)
     if (!isMobile && !formData.company)
       newErrors.company = "Company is required *";
-    if (!formData.phone) newErrors.phone = "Phone number is required *";
+    const phoneRegex = /^[6-9]\d{9}$/;
 
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required *";
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = "Enter a valid 10-digit phone number *";
+    }
     // Simple Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
@@ -82,24 +75,98 @@ export function ContactModal({ isOpen, onClose }) {
       setShake(true);
       setTimeout(() => setShake(false), 500); // Remove shake class after animation completes
     } else {
-  setIsSubmitting(true);
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+      setIsSubmitting(true);
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
 
-    if (!res.ok) throw new Error("Submission failed");
+        if (!res.ok) throw new Error("Submission failed");
 
-    setIsSubmitted(true);
-  } catch (err) {
-    console.error(err);
-    setErrors({ submit: "Something went wrong. Please try again." });
-  } finally {
-    setIsSubmitting(false);
-  }
-}
+        setIsSubmitted(true);
+      } catch (err) {
+        console.error(err);
+        setErrors((prev) => ({
+          ...prev,
+          submit: "Something went wrong. Please try again.",
+        }));
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      const hadInvalidChar = /\D/.test(value); // did they type a letter/symbol?
+      const digitsOnly = value.replace(/\D/g, "").slice(0, 10);
+
+      setFormData((prev) => ({ ...prev, phone: digitsOnly }));
+      setErrors((prev) => ({
+        ...prev,
+        phone: hadInvalidChar ? "Only numbers allowed" : "",
+      }));
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "email" && errors.email) {
+      setErrors((prev) => ({ ...prev, email: "" }));
+    }
+
+      if (name === "projectDetails" && value.length > 500) return; // Max length 500
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateEmail = (email) => {
+    if (!email) return ""; // empty = no error shown (let "required" handle that separately)
+
+    if (!email.includes("@")) {
+      return "Email is missing an @";
+    }
+
+    const [local, domain] = email.split("@");
+
+    if (!local) {
+      return "Please add a username before the @";
+    }
+
+    if (!domain) {
+      return "Please add a domain after the @";
+    }
+
+    if (!domain.includes(".")) {
+      return "Domain looks incomplete (e.g. .com missing)";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address";
+    }
+
+    return ""; // valid
+  };
+
+  const validatePhone = (phone) => {
+    if (!phone) return "";
+    if (!/^[6-9]\d{9}$/.test(phone))
+      return "Enter a valid 10-digit phone number";
+    return "";
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "email") {
+      setErrors((prev) => ({ ...prev, email: validateEmail(value) }));
+    }
+    if (name === "phone") {
+      setErrors((prev) => ({ ...prev, phone: validatePhone(value) }));
+    }
   };
 
   return (
@@ -427,14 +494,21 @@ export function ContactModal({ isOpen, onClose }) {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        maxLength={10}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                         placeholder=" "
                         className={`block w-full px-0 pt-4 pb-2 font-semibold text-[14px] text-[#333333] bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 peer transition-colors ${errors.phone ? "border-red-500" : formData.phone ? "border-[#5B47E5]" : "border-gray-200 focus:border-[#5B47E5]"}`}
                       />
+
                       <label
                         htmlFor="phone"
                         className={`absolute text-[16px] font-semibold duration-300 transform -translate-y-5 md:-translate-y-4 top-4 z-10 origin-[0] peer-focus:-translate-y-4.5 peer-placeholder-shown:translate-y-0 peer-focus:text-xs peer-not-placeholder-shown:text-xs pointer-events-none ${errors.phone ? "text-red-500" : "text-gray-500 peer-focus:text-[#5B47E5]"}`}
                       >
-                        {errors.phone ? errors.phone : "Phone Number *"}
+                        {errors.phone
+                          ? errors.phone
+                          : "Enter your phone number *"}
                       </label>
                     </div>
 
@@ -447,9 +521,11 @@ export function ContactModal({ isOpen, onClose }) {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         placeholder=" "
                         className={`block w-full px-0 pt-4 pb-2 font-semibold text-[14px] text-[#333333] bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 peer transition-colors ${errors.email ? "border-red-500" : formData.email ? "border-[#5B47E5]" : "border-gray-200 focus:border-[#5B47E5]"}`}
                       />
+
                       <label
                         htmlFor="email"
                         className={`absolute text-[16px] font-semibold duration-300 transform -translate-y-5 md:-translate-y-4 top-4 z-10 origin-[0] peer-focus:-translate-y-4.5 peer-placeholder-shown:translate-y-0 peer-focus:text-xs peer-not-placeholder-shown:text-xs pointer-events-none ${errors.email ? "text-red-500" : "text-gray-500 peer-focus:text-[#5B47E5]"}`}
@@ -566,11 +642,42 @@ export function ContactModal({ isOpen, onClose }) {
                   <div className="pt-4 md:pt-6">
                     <button
                       type="submit"
-                      // Removed disabled state so button is always clickable to trigger validation animations
-                      className="w-full py-3.5 px-4 bg-[#5B47E5] hover:bg-[#4D3CB6] text-white font-semibold rounded-[18px] md:rounded-[18px] shadow-md transition-all"
+                      disabled={isSubmitting}
+                      className={`w-full py-3.5 px-4 text-white font-semibold rounded-[18px] md:rounded-[18px] shadow-md transition-all flex items-center justify-center gap-2 ${
+                        isSubmitting
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-[#5B47E5] hover:bg-[#4D3CB6]"
+                      }`}
                     >
-                      Get Free Consultation
+                      {isSubmitting ? (
+                        <>
+                          <svg
+                            className="animate-spin h-5 w-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            />
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            />
+                          </svg>
+                          Sending...
+                        </>
+                      ) : (
+                        "Get Free Consultation"
+                      )}
                     </button>
+
                     <div className="mt-2 md:mt-4 flex items-center justify-center gap-2 text-[12px] md:text-[14px] tracking-tighter leading-tight text-gray-500">
                       <svg
                         width="14"
